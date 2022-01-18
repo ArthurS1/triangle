@@ -7,29 +7,15 @@ use winit::{
         EventLoop,
         ControlFlow,
     },
-    window::{
-        Window,
-    },
+    window::Window,
 };
-
-use raw_window_handle::{
-    HasRawWindowHandle,
-    RawWindowHandle,
-};
-
-use std::os::raw::c_void;
-
-fn draw(handle: &RawWindowHandle)
-{
-    let gl = gl::load_with(|_| *handle as *const c_void);
-}
 
 fn main()
 {
     let event_loop = EventLoop::new();
 
     match Window::new(&event_loop) {
-        Ok(window) => {
+        Ok(_) => {
             event_loop.run(move |event, _, control_flow| {
                 *control_flow = ControlFlow::Wait;
 
@@ -42,8 +28,7 @@ fn main()
                         *control_flow = ControlFlow::Exit;
                     }
                     Event::RedrawRequested(_) => {
-                        eprintln!("Window should redraw."); 
-                        draw(&window.raw_window_handle());
+                        eprintln!("Window should redraw.") 
                     }
                     _ => {
                         eprintln!("Unhandled event.");

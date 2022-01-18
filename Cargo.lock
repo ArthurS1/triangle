@@ -702,7 +702,6 @@ name = "triangle"
 version = "0.1.0"
 dependencies = [
  "gl",
- "raw-window-handle",
  "winit",
 ]
 
