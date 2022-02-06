@@ -15,7 +15,10 @@ fn main() {
     let wb = WindowBuilder::new()
         .with_title("triangle")
         .with_inner_size(glutin::dpi::LogicalSize::new(1024.0, 768.0));
-    let ctx = glutin::ContextBuilder::new().with_vsync(true).build_windowed(wb, &el).unwrap();
+    let ctx = glutin::ContextBuilder::new()
+        .with_vsync(false)
+        .build_windowed(wb, &el)
+        .unwrap();
     let windowed_context = unsafe { ctx.make_current().unwrap() };
 
     gl::load_with(|s| windowed_context.get_proc_address(s));
@@ -168,6 +171,7 @@ fn main() {
         // Delete after detach
         gl::DeleteShader(vertex_shader);
         gl::DeleteShader(fragment_shader);
+        gl::UseProgram(shader_program);
     }
 
     // Running the event loOoOop
@@ -182,7 +186,7 @@ fn main() {
                 _ => (),
             }
             Event::RedrawRequested(_) => {
-                println!("{:?}", event);
+                //println!("{:?}", event);
                 unsafe {
                     gl::Clear(gl::COLOR_BUFFER_BIT);
                     gl::DrawArrays(gl::TRIANGLES, 0, 3);
